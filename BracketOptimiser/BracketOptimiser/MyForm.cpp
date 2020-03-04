@@ -11,5 +11,5 @@ void Main(array<String^>^ args)
 	Application::SetCompatibleTextRenderingDefault(false);
 
 	BracketOptimiser::MyForm form;
-	Application::Run(% form);//penis
+	Application::Run(% form);
 }
