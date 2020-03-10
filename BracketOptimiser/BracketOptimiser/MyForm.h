@@ -212,7 +212,7 @@ namespace BracketOptimiser {
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label1);
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->Text = L"HWRacing Bracket Optimiser";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -223,16 +223,22 @@ namespace BracketOptimiser {
 		
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		Bracket bracket;
-		bracket.thickness = System::Convert::ToDouble(textBox3->Text);
-		bracket.holeDiameter = System::Convert::ToDouble(textBox1->Text);
-		bracket.lugRadius = System::Convert::ToDouble(textBox2->Text);
+		
+		if (textBox3->Text == "") {
+			MessageBox::Show("Please enter bracket values.", "Warning",
+				MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+		}else{
+			Bracket bracket;
+			bracket.thickness = System::Convert::ToDouble(textBox3->Text);
+			bracket.holeDiameter = System::Convert::ToDouble(textBox1->Text);
+			bracket.lugRadius = System::Convert::ToDouble(textBox2->Text);
 
-		Analysis analysis;
+			Analysis analysis;
 
-		label1->Text = analysis.runAnalysis(bracket, 12000).shearStress.ToString();
-		label2->Text = analysis.runAnalysis(bracket, 12000).bearingStress.ToString();
-		label3->Text = analysis.runAnalysis(bracket, 12000).tensileStress.ToString();
+			label1->Text = analysis.runAnalysis(bracket, 12000).shearStress.ToString();
+			label2->Text = analysis.runAnalysis(bracket, 12000).bearingStress.ToString();
+			label3->Text = analysis.runAnalysis(bracket, 12000).tensileStress.ToString();
+		}
 	}
 	};
 }
