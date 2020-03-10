@@ -1,3 +1,4 @@
+#pragma once
 class Bracket{
 public:
 	double lugRadius;
