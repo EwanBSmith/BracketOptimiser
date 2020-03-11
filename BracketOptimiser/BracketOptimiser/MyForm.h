@@ -2,7 +2,7 @@
 
 #include "Bracket.h"
 #include "Analysis.h"
-#include <vector>
+#include <string>
 
 namespace BracketOptimiser {
 
@@ -51,7 +51,6 @@ namespace BracketOptimiser {
 	private: System::Windows::Forms::Label^ label7;
 	private: System::Windows::Forms::Label^ label8;
 	private: System::Windows::Forms::Label^ label9;
-	private: System::Windows::Forms::Button^ button2;
 	protected:
 
 	private:
@@ -80,7 +79,6 @@ namespace BracketOptimiser {
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
-			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -98,7 +96,7 @@ namespace BracketOptimiser {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 1;
-			this->button1->Text = L"analysis";
+			this->button1->Text = L"button1";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
@@ -195,22 +193,11 @@ namespace BracketOptimiser {
 			this->label9->TabIndex = 12;
 			this->label9->Text = L"thickness";
 			// 
-			// button2
-			// 
-			this->button2->Location = System::Drawing::Point(197, 267);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(75, 23);
-			this->button2->TabIndex = 13;
-			this->button2->Text = L"optimise";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(284, 316);
-			this->Controls->Add(this->button2);
+			this->ClientSize = System::Drawing::Size(290, 258);
 			this->Controls->Add(this->label9);
 			this->Controls->Add(this->label8);
 			this->Controls->Add(this->label7);
@@ -224,7 +211,7 @@ namespace BracketOptimiser {
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label1);
-			this->Name = L"HWRacing Bracket Optimiser";
+			this->Name = L"MyForm";
 			this->Text = L"HWRacing Bracket Optimiser";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->ResumeLayout(false);
@@ -242,37 +229,16 @@ namespace BracketOptimiser {
 				MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
 		}else{
 			Bracket bracket;
-			bracket.thickness = System::Convert::ToDouble(textBox3->Text)/1000;
-			bracket.holeDiameter = System::Convert::ToDouble(textBox1->Text)/1000;
-			bracket.lugRadius = System::Convert::ToDouble(textBox2->Text)/1000;
+			bracket.thickness = System::Convert::ToDouble(textBox3->Text);
+			bracket.holeDiameter = System::Convert::ToDouble(textBox1->Text);
+			bracket.lugRadius = System::Convert::ToDouble(textBox2->Text);
 
 			Analysis analysis;
-			analysisResults results = analysis.runAnalysis(bracket, 12000);
 
-			label1->Text = results.shearStress.ToString();
-			label2->Text = results.bearingStress.ToString();
-			label3->Text = results.tensileStress.ToString();
+			label1->Text = analysis.runAnalysis(bracket, 12000).shearStress.ToString();
+			label2->Text = analysis.runAnalysis(bracket, 12000).bearingStress.ToString();
+			label3->Text = analysis.runAnalysis(bracket, 12000).tensileStress.ToString();
 		}
 	}
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		bool bracketOptimised = false;
-		Analysis optimisationAnalysis;
-		std::vector<Bracket> designedBrackets;
-
-		Bracket bracket;
-		bracket.thickness = System::Convert::ToDouble(textBox3->Text) / 1000;
-		bracket.holeDiameter = System::Convert::ToDouble(textBox1->Text) / 1000;
-		bracket.lugRadius = System::Convert::ToDouble(textBox2->Text) / 1000;
-
-		double dimensionIteration = 0.5;
-
-		Analysis inputBracketAnalysis;
-		analysisResults inputBracketResults = inputBracketAnalysis.runAnalysis(bracket, 12000);
-
-		while (!bracketOptimised) {
-			bracket.thickness = bracket.thickness - dimensionIteration;
-			inputBracketAnalysis.runAnalysis(bracket, 12000);
-		}
-	}
-};
+	};
 }
