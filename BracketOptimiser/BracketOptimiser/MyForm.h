@@ -229,9 +229,9 @@ namespace BracketOptimiser {
 				MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
 		}else{
 			Bracket bracket;
-			bracket.thickness = System::Convert::ToDouble(textBox3->Text);
-			bracket.holeDiameter = System::Convert::ToDouble(textBox1->Text);
-			bracket.lugRadius = System::Convert::ToDouble(textBox2->Text);
+			bracket.thickness = System::Convert::ToDouble(textBox3->Text)/1000;
+			bracket.holeDiameter = System::Convert::ToDouble(textBox1->Text)/1000;
+			bracket.lugRadius = System::Convert::ToDouble(textBox2->Text)/1000;
 
 			Analysis analysis;
 
