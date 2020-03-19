@@ -123,11 +123,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="Optimiser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Analysis.h" />
     <ClInclude Include="Bracket.h" />
     <ClInclude Include="MyForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Optimiser.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
